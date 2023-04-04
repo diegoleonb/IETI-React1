@@ -1,19 +1,24 @@
 import { Header } from "./components/Header"
 import { TaskList } from "./components/TaskList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from '@mui/material/Button';
 
 function App() {
-
-  const [tasks, setTasks] = useState([
-    {name :"Task 1", id: 1, done : false},
-    {name :"Task 2", id: 2,  done : false},
-    {name :"Task 3", id: 3,  done : false},
-    {name :"Task 4", id: 4,  done : false},
-    {name :"Task 5", id: 5,  done : false},
-    {name :"Task 6", id: 6,  done : false},
-    {name :"Task 7", id: 7,  done : false},
+  
+  const [tasks, setTasks] = useState(localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')) : [
+    {name :"Trabajo - Finalizar", id: 1, descripcion : "Terminar el proyecto", done : false},
+    {name :"Trabajo - Arreglar", id: 2, descripcion : "Arreglar los bugs de la aplicacion", done : false},
+    {name :"Universidad - Aprender", id: 3, descripcion : "Aprender React", done : false},
+    {name :"Universidad - Laboratorio", id: 4, descripcion : "Terminar el laboratorio de React", done : false},
   ]);
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
+
+  const handleSaveTasks = () => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  };
 
   const handleTaskClick = (taskId) => {
     setTasks(
@@ -41,9 +46,15 @@ function App() {
 
   const newTask = () => {
     const text = prompt('Type new task');
-    setTasks(
-      tasks.concat({name: text, id: tasks.length + 1, done: false})
-    );
+    const descripcion = prompt('Type new task description');
+    if(text !== null && text.length > 0 && descripcion !== null && descripcion.length > 0){
+      setTasks(
+        tasks.concat({name: text, id: tasks.length + 1, descripcion: descripcion, done: false})
+      );
+    }
+    else{
+      alert("Task cannot be empty");
+    }
   };
 
   return (
