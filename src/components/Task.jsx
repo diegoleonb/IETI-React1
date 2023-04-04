@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 export const Task = (props) => {
-    const { name, id, done, onTaskClick, onTaskDelete, onTaskEdit} = props;
+    const { name, id, descripcion, done, onTaskClick, onTaskDelete, onTaskEdit} = props;
 
     const style_color = {
         color: "black",
@@ -18,13 +18,15 @@ export const Task = (props) => {
 
     const enterEditText = () => {
         const text = prompt('Edit task');
-        onTaskEdit(id, text);
+        if(text !== null && text.length > 0){
+            onTaskEdit(id, text);
+        }
     };
 
     return (
-        <Card sx={{ minWidth: 275}}>
+        <Card sx={{ minWidth: 250, maxHeight: 160}}>
             <CardContent>
-                    <Button size="medium" onClick={() => onTaskClick(id)}>
+                    <Button size="small" onClick={() => onTaskClick(id)}>
 
                         {done && '✅'}
 
@@ -32,11 +34,15 @@ export const Task = (props) => {
 
                         <Typography component = "div">
 
-                        {done? <h4 style={done_style}>{name}</h4> : <h4 style={style_color}>{name}</h4>}
+                        {done? <h5 style={done_style}>{name}</h5> : <h5 style={style_color}>{name}</h5>}
 
                         </Typography>  
 
                     </Button>
+
+                    <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
+                        {descripcion}
+                    </Typography>
 
                 </CardContent>
 

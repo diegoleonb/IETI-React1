@@ -15,12 +15,11 @@ export const TaskList = (props) => {
         onTaskEdit(taskId, text);
     };
 
-
     return (
         <div className="task-list">   
             {tasks.map((task) => (
                 <div key={task.id}>
-                    <Task name={task.name} id={task.id} done={task.done} onTaskClick = {handleTaskClick} onTaskDelete = {handleTaskDelete} onTaskEdit = {handleTaskEdit}/>
+                    <Task name={task.name} id={task.id} descripcion={task.descripcion} done={task.done} onTaskClick = {handleTaskClick} onTaskDelete = {handleTaskDelete} onTaskEdit = {handleTaskEdit}/>
                 </div>
             ))}
         </div>
