@@ -13,12 +13,10 @@ export function useTask(){
     localStorage.setItem('tasks', JSON.stringify(tasks));
     }, [tasks]);
 
-    function addTask(){
-        const text = prompt('Type new task');
-        const descripcion = prompt('Type new task description');
-        if(text !== null && text.length > 0 && descripcion !== null && descripcion.length > 0){
+    function addTask(text, description){
+        if(text !== null && text.length > 0 && description !== null && description.length > 0){
         setTasks(
-            tasks.concat({name: text, id: tasks.length + 1, descripcion: descripcion, done: false})
+            tasks.concat({name: text, id: tasks.length + 1, descripcion: description, done: false})
         );
         }
         else{
