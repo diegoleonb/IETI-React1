@@ -14,7 +14,7 @@ export function useTask(){
     }, [tasks]);
 
     function addTask(text, description){
-        if(text !== null && text.length > 0 && description !== null && description.length > 0){
+        if(text !== null && text.length > 0){
         setTasks(
             tasks.concat({name: text, id: tasks.length + 1, descripcion: description, done: false})
         );
