@@ -1,8 +1,5 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import { Button, ChakraProvider, Box, Text } from '@chakra-ui/react';
+
 
 export const Task = (props) => {
     const { name, id, descripcion, done, onTaskClick, onTaskDelete, onTaskEdit} = props;
@@ -24,34 +21,21 @@ export const Task = (props) => {
     };
 
     return (
-        <Card sx={{ minWidth: 250, maxHeight: 160}}>
-            <CardContent>
-                    <Button size="small" onClick={() => onTaskClick(id)}>
-
-                        {done && '✅'}
-
-                        {!done && '⬜'}  
-
-                        <Typography component = "div">
-
-                        {done? <h5 style={done_style}>{name}</h5> : <h5 style={style_color}>{name}</h5>}
-
-                        </Typography>  
-
-                    </Button>
-
-                    <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
-                        {descripcion}
-                    </Typography>
-
-                </CardContent>
-
-            <CardActions>
-                <Button size="small" endIcon = '📝' onClick={() => enterEditText()}>Edit</Button>
-
-                <Button size="small" endIcon = '🗑️' onClick={() => onTaskDelete(id)}>Delete</Button>
-
-            </CardActions>
-        </Card>
+        <ChakraProvider>
+            <Box paddingTop={5} backgroundColor="blackAlpha.200">
+                <Button size="sm" variant="outline" onClick={() => onTaskClick(id)}>
+                {done && '✅'}
+                {!done && '⬜'} 
+                {done? <h5 style={done_style}>{name}</h5> : <h5 style={style_color}>{name}</h5>}
+                </Button>
+                <Text fontSize="sm" mb={6} color="black" paddingStart={5}>{descripcion}</Text>
+                <Button variant="outline" size="sm" rightIcon='📝' onClick={() => enterEditText()}>
+                    Edit
+                </Button>
+                <Button variant="outline" size="sm" rightIcon='🗑️' onClick={() => onTaskDelete(id)}>
+                    Delete
+                </Button>
+            </Box>
+        </ChakraProvider>  
     );
 };
